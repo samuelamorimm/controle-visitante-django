@@ -15,15 +15,19 @@ class Visitante(models.Model):
     data_nascimento = models.DateField(verbose_name='Data De Nascimento', auto_now=False, auto_now_add=False)
     numero_casa = models.PositiveSmallIntegerField(verbose_name='Numero da casa a ser visitada')
     placa_veiculo = models.CharField(verbose_name='Placa do Carro', max_length=7, blank=True, null=True)
-    horario_chegada = models.DateField(verbose_name='Horário de chegada na portaria', auto_now_add=True)
-    horario_autorizacao = models.DateField(verbose_name='Horário de autorização de entrada', auto_now_add=False, blank=True,null=True)
-    horario_saida = models.DateField(verbose_name='Horário de saída na portaria', auto_now_add=False, blank=True,null=True)
+    horario_chegada = models.DateTimeField(verbose_name='Horário de chegada na portaria', auto_now_add=True)
+    horario_autorizacao = models.DateTimeField(verbose_name='Horário de autorização de entrada', auto_now_add=False, blank=True,null=True)
+    horario_saida = models.DateTimeField(verbose_name='Horário de saída na portaria', auto_now_add=False, blank=True,null=True)
     morador_responsavel = models.CharField(verbose_name='Nome do morado responsável', max_length=200, blank=False, null=False)
     registrado_por = models.ForeignKey('porteiros.Porteiro', verbose_name='Porteiro responsável pelo registro', on_delete=models.PROTECT)
 
     def get_horario_saida(self):
         if self.horario_saida:
             return self.horario_saida
+        
+    def get_horario_chegada(self):
+        if self.horario_chegada:
+            return self.horario_chegada
         
     def get_horario_autorizacao(self):
         if self.horario_autorizacao:
@@ -40,12 +44,12 @@ class Visitante(models.Model):
     def get_cpf(self):
         if self.cpf:
             cpf = str(self.cpf)
-            cpf_parte_um = cpf[0:2]
-            cpf_parte_dois = cpf[3:5]
-            cpf_parte_tres = cpf[6:8]
+            cpf_parte_um = cpf[0:3]
+            cpf_parte_dois = cpf[3:6]
+            cpf_parte_tres = cpf[6:9]
             cpf_parte_quatro = cpf[9:]
             cpf_fomatado = f'{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_parte_quatro}'
-            return self.cpf
+            return cpf_fomatado
         
     class Meta:
         verbose_name = 'Visitante'
