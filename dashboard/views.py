@@ -27,5 +27,3 @@ def index(request):
 
     return render(request,'index.html', context)
 
-def register(request):
-    return render(request,'registrar_visitante.html')
