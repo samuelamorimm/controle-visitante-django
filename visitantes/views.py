@@ -25,3 +25,7 @@ def registrar_visitante(request):
     }
     
     return render(request,'registrar_visitante.html',context)
+
+def informacoes_visitante(request):
+    
+    return render(request,'informacoes_visitante.html')
