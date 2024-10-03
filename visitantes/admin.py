@@ -1,5 +1,4 @@
 from django.contrib import admin
-from visitantes.models import Visitante
+from .models import Visitante
 
-# Register your models here.
 admin.site.register(Visitante)
