@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from visitantes.forms import VisitanteForm
+from visitantes.models import Visitante
 
 @login_required
 def registrar_visitante(request):
@@ -26,6 +27,6 @@ def registrar_visitante(request):
     
     return render(request,'registrar_visitante.html',context)
 
-def informacoes_visitante(request):
-    
-    return render(request,'informacoes_visitante.html')
+def informacoes_visitante(request, pk):
+    visitante = get_object_or_404(Visitante, pk=pk)
+    return render(request,'informacoes_visitante.html', {'visitante':visitante})

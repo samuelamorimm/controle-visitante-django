@@ -21,9 +21,17 @@ class Visitante(models.Model):
     morador_responsavel =  models.CharField( verbose_name='Nome do morador responsavel',max_length=200,blank=False)
     registrado_por = models.ForeignKey('porteiros.Porteiro', verbose_name='Porteiro responsavel pelo registro', on_delete=models.PROTECT)
     
+    def get_numero_casa(self):
+        if self.numero_casa:
+            return self.numero_casa
+
     def get_horario_chegada(self):
         if self.horario_chegada:
             return self.horario_chegada
+        
+    def get_data_nascimento(self):
+        if self.data_nascimento:
+            return self.data_nascimento    
         
     def get_horario_saida(self):
         if self.horario_saida:
@@ -36,6 +44,10 @@ class Visitante(models.Model):
     def get_morador_responsavel(self):
         if self.morador_responsavel:
             return self.morador_responsavel
+    
+    def get_registrado_por(self):
+        if self.registrado_por:
+            return self.registrado_por
         
     def get_placa_veiculo(self):
         if self.placa_veiculo:
